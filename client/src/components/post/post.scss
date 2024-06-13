@@ -47,12 +47,39 @@
             }
           }
         }
+
+        .toggleButton {
+          transition: all 0.5s;
+          cursor: pointer;
+          border: none;
+          background-color: themed("bg");
+
+          .moreIcon {
+            border: none;
+            color: themed("textColor");
+          }
+        }
+
+        .menuList {
+          transition: all 0.5s;
+          background-color: themed("bg");
+          border: none;
+
+          .menuItem {
+            &.editIcon {
+              color: themed("textColor");
+            }
+            &.deleteIcon {
+              color: #f0544f;
+            }
+            span {
+              color: themed("textColor");
+            }
+          }
+        }
       }
       .content {
         margin: 20px 0px;
-
-        p {
-        }
 
         img {
           width: 100%;

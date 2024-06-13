@@ -1,14 +1,17 @@
 import "./post.scss";
 import moment from "moment";
 import Comments from "../comments/Comments";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { Dropdown } from "rsuite";
 import { Link } from "react-router-dom";
-import { Collapse } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Collapse, IconButton } from "@mui/material";
 import { postState } from "../../store/postsSlice";
 import { makeRequest } from "../../utils/makeRequest";
 import { setComments } from "../../store/commentsSlice";
@@ -65,6 +68,12 @@ function Post({ post }: PostProps) {
       });
   };
 
+  const renderToggle = (props: any) => (
+    <IconButton {...props} className="toggleButton">
+      <MoreHorizIcon className="moreIcon" />
+    </IconButton>
+  );
+
   return (
     <div className="post">
       <div className="container">
@@ -78,7 +87,19 @@ function Post({ post }: PostProps) {
               <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizIcon />
+          {currentUser.id === post.userId && (
+            <Dropdown renderToggle={renderToggle} className="menuList">
+              <Dropdown.Item icon={<EditIcon />} className="menuItem editIcon">
+                <span>Edit</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                icon={<DeleteIcon />}
+                className="menuItem deleteIcon"
+              >
+                <span>Delete</span>
+              </Dropdown.Item>
+            </Dropdown>
+          )}
         </div>
         <div className="content">
           <p>{post.desc}</p>
