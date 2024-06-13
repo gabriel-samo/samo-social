@@ -10,10 +10,10 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../store/authSlice";
 import { removePosts } from "../../store/postsSlice";
+import { removeProfile } from "../../store/profileSlice";
 import { toggleDarkMode } from "../../store/darkModeSlice";
 import { removeComments } from "../../store/commentsSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { removeProfile } from "../../store/profileSlice";
 
 function Navbar() {
   const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ function Navbar() {
     <div className="navbar">
       <div className="left">
         <Link to="/">
-          <span>CheckingGit</span>
+          <span>samo-social</span>
         </Link>
         <HomeOutlinedIcon />
         <div className="toggle">

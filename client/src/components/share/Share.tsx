@@ -1,5 +1,4 @@
 import "./share.scss";
-import axios from "axios";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
@@ -7,6 +6,7 @@ import notify from "../../utils/Notify";
 import { addPost } from "../../store/postsSlice";
 import { FormEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { makeRequest } from "../../utils/makeRequest";
 
 const Share = () => {
   const currentUser = useAppSelector((state) => state.currentUser);
@@ -18,10 +18,7 @@ const Share = () => {
     try {
       const formData = new FormData();
       if (file) formData.append("file", file);
-      const res = await axios.post(
-        "http://localhost:3012/api/upload",
-        formData
-      );
+      const res = await makeRequest().post("/upload", formData);
       return res.data;
     } catch (err: any) {
       notify.error(err.message);
@@ -35,12 +32,8 @@ const Share = () => {
       desc,
       img: imgUrl ? imgUrl : ""
     };
-    axios
-      .post("http://localhost:3012/api/posts/add", sendData, {
-        headers: {
-          Authorization: currentUser.token
-        }
-      })
+    makeRequest()
+      .post("/posts/add", sendData)
       .then((res) => {
         setDesc("");
         setFile(null);

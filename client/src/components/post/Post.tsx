@@ -1,5 +1,4 @@
 import "./post.scss";
-import axios from "axios";
 import moment from "moment";
 import Comments from "../comments/Comments";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -11,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Collapse } from "@mui/material";
 import { useEffect, useState } from "react";
 import { postState } from "../../store/postsSlice";
+import { makeRequest } from "../../utils/makeRequest";
 import { setComments } from "../../store/commentsSlice";
 import { addLike, setLikes } from "../../store/likesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -32,11 +32,11 @@ function Post({ post }: PostProps) {
   const liked = postLikes?.usersIds?.includes(currentUser.id!);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3012/api/comments/?postId=" + post.id)
+    makeRequest()
+      .get("/comments/?postId=" + post.id)
       .then((res) => {
         dispatch(setComments({ comments: res.data, postId: post.id }));
-        return axios.get("http://localhost:3012/api/likes/?postId=" + post.id);
+        return makeRequest().get("/likes/?postId=" + post.id);
       })
       .then((res) => {
         dispatch(setLikes({ usersIds: res.data, postId: post.id }));
@@ -47,20 +47,14 @@ function Post({ post }: PostProps) {
   }, []);
 
   const handleLike = () => {
-    axios
-      .post(
-        "http://localhost:3012/api/likes/add",
-        { postId: post.id },
-        { headers: { Authorization: currentUser.token } }
-      )
+    makeRequest(currentUser.token)
+      .post("/likes/add", { postId: post.id })
       .then((res) => {
         if (res.data.addedLike) {
           const { postId, userId } = res.data.addedLike;
           dispatch(addLike({ postId, userId }));
         } else {
-          return axios.get(
-            "http://localhost:3012/api/likes/?postId=" + post.id
-          );
+          return makeRequest().get("/likes/?postId=" + post.id);
         }
       })
       .then((res) => {

@@ -1,13 +1,11 @@
 import "./login.scss";
-import axios from "axios";
 import notify from "../../utils/Notify";
 import { useNavigate } from "react-router-dom";
 import { caption } from "../register/Register";
 import { loginUser } from "../../store/authSlice";
 import { useAppDispatch } from "../../store/hooks";
+import { makeRequest } from "../../utils/makeRequest";
 import { SubmitHandler, useForm } from "react-hook-form";
-// import { store } from "../../redux/store";
-// import { loginAction } from "../../redux/authReducer";
 
 type formInputs = {
   username: string;
@@ -24,8 +22,8 @@ const Login = () => {
   } = useForm<formInputs>();
 
   const onSubmit: SubmitHandler<formInputs> = (data) => {
-    axios
-      .post("http://localhost:3012/api/auth/login", data)
+    makeRequest()
+      .post("/auth/login", data)
       .then((res) => {
         notify.success(res.data.msg);
         dispatch(loginUser(res.headers["authorization"]));

@@ -1,8 +1,8 @@
 import "./register.scss";
-import axios from "axios";
 import notify from "../../utils/Notify";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { makeRequest } from "../../utils/makeRequest";
 
 type formInputs = {
   username: string;
@@ -26,9 +26,8 @@ const Register = () => {
   } = useForm<formInputs>();
 
   const onSubmit: SubmitHandler<formInputs> = (data) => {
-    // console.log(data);
-    axios
-      .post("http://localhost:3012/api/auth/register", data)
+    makeRequest()
+      .post("/auth/register", data)
       .then((res) => {
         notify.success(res.data.msg);
         navigate("/login");

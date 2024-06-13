@@ -1,5 +1,4 @@
 import "./profile.scss";
-import axios from "axios";
 import Posts from "../../components/posts/Posts";
 import PlaceIcon from "@mui/icons-material/Place";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -19,6 +18,7 @@ import {
   setRelationships
 } from "../../store/relationshipsSlice";
 import Update from "../../components/update/Update";
+import { makeRequest } from "../../utils/makeRequest";
 
 function Profile() {
   const params = useParams();
@@ -32,18 +32,13 @@ function Profile() {
   const [openUpdate, setOpenUpdate] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3012/api/users/find/" + userId, {
-        headers: { Authorization: currentUser.token }
-      })
+    makeRequest(currentUser.token)
+      .get("/users/find/" + userId)
       .then((res) => {
         dispatch(setProfile(res.data));
-        return axios.get(
-          "http://localhost:3012/api/relationships/?followedUserId=" + userId
-        );
+        return makeRequest().get("/relationships/?followedUserId=" + userId);
       })
       .then((res) => {
-        // dispatch(removeRelationships());
         dispatch(
           setRelationships({
             followedUserId: +userId!,
@@ -61,21 +56,16 @@ function Profile() {
   );
 
   const handleFollow = () => {
-    axios
-      .post(
-        "http://localhost:3012/api/relationships/add/",
-        { userId: parseInt(userId!) },
-        { headers: { Authorization: currentUser.token } }
-      )
+    makeRequest(currentUser.token)
+      .post("/relationships/add/", {
+        userId: parseInt(userId!)
+      })
       .then((res) => {
-        console.log(res.data);
         if (res.data.addedRelationship) {
           const { followerUserId, followedUserId } = res.data.addedRelationship;
           dispatch(addRelationship({ followedUserId, followerUserId }));
         } else {
-          return axios.get(
-            "http://localhost:3012/api/relationships/?followedUserId=" + userId
-          );
+          return makeRequest().get("/relationships/?followedUserId=" + userId);
         }
       })
       .then((res) => {

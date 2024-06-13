@@ -1,5 +1,4 @@
 import "./update.scss";
-import axios from "axios";
 import notify from "../../utils/Notify";
 import { Fade } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
@@ -7,6 +6,7 @@ import { loginUser } from "../../store/authSlice";
 import { setProfile } from "../../store/profileSlice";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { makeRequest } from "../../utils/makeRequest";
 
 type UpdateProps = {
   setOpenUpdate: (arg: boolean) => void;
@@ -39,10 +39,7 @@ function Update({ openUpdate, setOpenUpdate }: UpdateProps) {
     try {
       const formData = new FormData();
       if (file) formData.append("file", file);
-      const res = await axios.post(
-        "http://localhost:3012/api/upload",
-        formData
-      );
+      const res = await makeRequest().post("/upload", formData);
       return res.data;
     } catch (err: any) {
       notify.error(err.message);
@@ -76,22 +73,13 @@ function Update({ openUpdate, setOpenUpdate }: UpdateProps) {
       coverPic: coverPicUrl
     };
 
-    axios
-      .put(
-        "http://localhost:3012/api/users/update/" + currentUser.id,
-        userDetails,
-        {
-          headers: { Authorization: currentUser.token }
-        }
-      )
+    makeRequest(currentUser.token)
+      .put("/users/update/" + currentUser.id, userDetails)
       .then((res) => {
         if (res.status === 200) {
           dispatch(loginUser(res.headers["authorization"]));
-          return axios.get(
-            "http://localhost:3012/api/users/find/" + currentUser.id,
-            {
-              headers: { Authorization: currentUser.token }
-            }
+          return makeRequest(currentUser.token).get(
+            "/users/find/" + currentUser.id
           );
         }
       })

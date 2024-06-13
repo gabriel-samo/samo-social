@@ -1,10 +1,10 @@
 import "./posts.scss";
-import axios from "axios";
 import Post from "../post/Post";
 import notify from "../../utils/Notify";
 import { useEffect } from "react";
 import { setPosts } from "../../store/postsSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { makeRequest } from "../../utils/makeRequest";
 
 type PostsProps = {
   userId?: number;
@@ -16,13 +16,9 @@ function Posts({ userId }: PostsProps) {
   const currentUser = useAppSelector((state) => state.currentUser);
 
   useEffect(() => {
-    const URL = userId
-      ? `http://localhost:3012/api/posts?userId=${userId}`
-      : "http://localhost:3012/api/posts";
-    axios
-      .get(URL, {
-        headers: { Authorization: currentUser.token }
-      })
+    const URL = userId ? `/posts?userId=${userId}` : "/posts";
+    makeRequest(currentUser.token)
+      .get(URL)
       .then((res) => {
         dispatch(setPosts(res.data));
       })
