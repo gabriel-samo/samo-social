@@ -10,7 +10,6 @@ export const register = async (req: Request, res: Response) => {
     const findUserQuery = "SELECT * FROM users WHERE username = ?";
     const result = await Query(findUserQuery, [req.body.username]);
     if (result.length !== 0) {
-      console.log(result);
       return res.status(409).json({ msg: "User already exists" });
     }
     // Hash the password

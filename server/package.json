@@ -5,9 +5,9 @@
   "scripts": {
     "watch:server": "node esbuild-config/server.dev.mjs",
     "watch:restart-server": "nodemon --config nodemon.json",
-    "clientDev": "cd../client && npm run dev",
-    "clientBuild": "cd../client && npm run build",
-    "clientStart": "cd../client && npm run preview",
+    "clientDev": "cd ../client && npm run dev",
+    "clientBuild": "cd ../client && npm run build",
+    "clientStart": "cd ../client && npm run preview",
     "dev": "npm-run-all --parallel watch:* clientDev",
     "build": "node esbuild-config/server.prod.mjs",
     "start": "node dist/server.js"

@@ -7,7 +7,7 @@ try {
     sourcemap: false,
     minify: true,
     platform: "node",
-    target: ["node18.6"],
+    target: ["node20.14"],
     packages: "external",
     define: {
       "process.env.NODE_ENV": "'production'"
