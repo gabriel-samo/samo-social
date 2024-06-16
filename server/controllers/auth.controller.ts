@@ -56,6 +56,7 @@ export const login = async (req: Request, res: Response) => {
       .header("Authorization", token)
       .json({ msg: `User ${req.body.username} was logged in! :)` });
   } catch (error: any) {
+    console.log(error);
     return res
       .status(500)
       .json({ msg: `Something went wrong: \n${error.message}` });

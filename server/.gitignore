@@ -27,3 +27,6 @@ pids
 
 # Directory used by npm for cache
 .npm
+
+Dockerfile.*
+.dockerignore
