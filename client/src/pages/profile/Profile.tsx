@@ -49,7 +49,7 @@ function Profile() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [userId]);
 
   const isFollowing = userFollowers?.followersUserIds?.includes(
     currentUser.id!

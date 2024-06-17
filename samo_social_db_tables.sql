@@ -43,7 +43,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'Testing comments for posts :)','2024-05-31 19:13:59',2,1),(2,'Another test!','2024-05-31 19:33:31',2,1),(3,'ima sha','2024-06-06 14:37:46',2,1),(4,'Nice post!! but where is the image?! :(','2024-06-13 16:55:53',2,4);
+INSERT INTO `comments` VALUES (1,'Testing comments for posts :)','2024-05-31 19:13:59',2,1),(2,'Another test!','2024-05-31 19:33:31',2,1),(3,'Test!!!!!!!!','2024-06-06 14:37:46',2,1),(4,'Nice post!! but where is the image?! :(','2024-06-13 16:55:53',2,4);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +192,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'test1','test1@test.com','$2b$10$cFe6U2OVICI50bBawc310ueGQgsvTiCCERYwBSs33IGZ8wj/aWzV.','John Doe',NULL,'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',NULL,NULL),(2,'test2','newTest2@test.com','$2b$10$R7OF.J67YROtLAADacpx5e.Pl5hxi4QQbBE0B6e4Kl/ScnrjJ5sE6','Admin','/uploads/1718309771587_bitcoin-coverdInGold.jpg','https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600','Haifa','N/A'),(3,'test3','test3@test.com','$2b$10$J/ZjVvKEeAo0Fd8RXlpTjeZk5YYlz4Yvwp35/nWnHZuVyIdbJCOwG','Jane Doe','https://cdn.pixabay.com/photo/2017/08/30/17/25/please-2697945_1280.jpg','https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600',NULL,NULL);
+INSERT INTO `users` VALUES (1,'test1','test1@test.com','$2b$10$cFe6U2OVICI50bBawc310ueGQgsvTiCCERYwBSs33IGZ8wj/aWzV.','John Doe',NULL,'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',NULL,NULL),(2,'test2','newTest2@test.com','$2b$10$R7OF.J67YROtLAADacpx5e.Pl5hxi4QQbBE0B6e4Kl/ScnrjJ5sE6','Admin','http://localhost:3012/api/upload/1718309771587_bitcoin-coverdInGold.jpg','https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600','Haifa','N/A'),(3,'test3','test3@test.com','$2b$10$J/ZjVvKEeAo0Fd8RXlpTjeZk5YYlz4Yvwp35/nWnHZuVyIdbJCOwG','Jane Doe','https://cdn.pixabay.com/photo/2017/08/30/17/25/please-2697945_1280.jpg','https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600',NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-16  2:39:52
+-- Dump completed on 2024-06-17  2:53:11

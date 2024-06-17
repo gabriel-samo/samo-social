@@ -18,7 +18,10 @@ const Share = () => {
     try {
       const formData = new FormData();
       if (file) formData.append("file", file);
-      const res = await makeRequest().post("/upload", formData);
+      const res = await makeRequest(currentUser.token).post(
+        "/upload",
+        formData
+      );
       return res.data;
     } catch (err: any) {
       notify.error(err.message);
@@ -32,7 +35,7 @@ const Share = () => {
       desc,
       img: imgUrl ? imgUrl : ""
     };
-    makeRequest()
+    makeRequest(currentUser.token)
       .post("/posts/add", sendData)
       .then((res) => {
         setDesc("");

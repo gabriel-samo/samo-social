@@ -25,7 +25,7 @@ function Posts({ userId }: PostsProps) {
       .catch((err) => {
         notify.error(err.message);
       });
-  }, []);
+  }, [userId]);
 
   return (
     <div className="posts">

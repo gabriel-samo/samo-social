@@ -19,6 +19,7 @@ export const getPosts = async (req: Request, res: Response) => {
 
     return res.status(200).json(result);
   } catch (error: any) {
+    console.log(error);
     return res
       .status(500)
       .json({ msg: `Something went wrong: \n${error.message}` });
