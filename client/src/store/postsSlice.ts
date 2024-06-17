@@ -7,6 +7,7 @@ export type postState = {
   name?: string;
   userId?: number;
   createdAt?: string;
+  updatedAt?: string;
   profilePic?: string;
 };
 
@@ -28,8 +29,17 @@ export const postsSlice = createSlice({
     addPost(state, action: PayloadAction<postState>) {
       state = [action.payload, ...state];
       return state;
+    },
+
+    updatePost(state, action: PayloadAction<postState>) {
+      let foundPost = state.find((post) => post.id === action.payload.id);
+      if (foundPost) {
+        foundPost = { ...action.payload };
+      }
+      return state;
     }
   }
 });
 
-export const { setPosts, addPost, removePosts } = postsSlice.actions;
+export const { setPosts, addPost, removePosts, updatePost } =
+  postsSlice.actions;

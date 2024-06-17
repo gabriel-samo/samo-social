@@ -17,6 +17,7 @@ import { makeRequest } from "../../utils/makeRequest";
 import { setComments } from "../../store/commentsSlice";
 import { addLike, setLikes } from "../../store/likesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import PostUpdate from "../postUpdate/PostUpdate";
 
 type PostProps = {
   post: postState;
@@ -33,6 +34,7 @@ function Post({ post }: PostProps) {
     (item) => item.postId === post.id
   );
   const liked = postLikes?.usersIds?.includes(currentUser.id!);
+  const [openPostUpdate, setOpenPostUpdate] = useState(false);
 
   useEffect(() => {
     makeRequest()
@@ -68,6 +70,8 @@ function Post({ post }: PostProps) {
       });
   };
 
+  const handleDelete = () => {};
+
   const renderToggle = (props: any) => (
     <IconButton {...props} className="toggleButton">
       <MoreHorizIcon className="moreIcon" />
@@ -89,12 +93,19 @@ function Post({ post }: PostProps) {
           </div>
           {currentUser.id === post.userId && (
             <Dropdown renderToggle={renderToggle} className="menuList">
-              <Dropdown.Item icon={<EditIcon />} className="menuItem editIcon">
+              <Dropdown.Item
+                icon={<EditIcon />}
+                className="menuItem editIcon"
+                onClick={() => {
+                  setOpenPostUpdate(true);
+                }}
+              >
                 <span>Edit</span>
               </Dropdown.Item>
               <Dropdown.Item
                 icon={<DeleteIcon />}
                 className="menuItem deleteIcon"
+                onClick={handleDelete}
               >
                 <span>Delete</span>
               </Dropdown.Item>
@@ -113,35 +124,47 @@ function Post({ post }: PostProps) {
           />
         </div>
         <div className="info">
-          <div className="item">
-            {liked ? (
-              <FavoriteOutlinedIcon
-                onClick={handleLike}
-                style={{ color: "red" }}
-              />
-            ) : (
-              <FavoriteBorderOutlinedIcon onClick={handleLike} />
-            )}
-            {postLikes?.usersIds?.length || 0} Likes
+          <div className="items">
+            <div className="item">
+              {liked ? (
+                <FavoriteOutlinedIcon
+                  onClick={handleLike}
+                  style={{ color: "red" }}
+                />
+              ) : (
+                <FavoriteBorderOutlinedIcon onClick={handleLike} />
+              )}
+              {postLikes?.usersIds?.length || 0} Likes
+            </div>
+            <div
+              className="item"
+              onClick={() => {
+                setShowComments(!showComments);
+              }}
+            >
+              <TextsmsOutlinedIcon />
+              {postComments?.comments?.length || 0} Comments
+            </div>
+            <div className="item">
+              <ShareOutlinedIcon />
+              Share
+            </div>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              setShowComments(!showComments);
-            }}
-          >
-            <TextsmsOutlinedIcon />
-            {postComments?.comments?.length || 0} Comments
-          </div>
-          <div className="item">
-            <ShareOutlinedIcon />
-            Share
+          <div className="updatedAt">
+            {post.updatedAt ? "Edited " + moment(post.updatedAt).fromNow() : ""}
           </div>
         </div>
         <Collapse in={showComments}>
           <Comments postId={post.id} comments={postComments?.comments} />
         </Collapse>
       </div>
+      {openPostUpdate && (
+        <PostUpdate
+          post={post}
+          openPostUpdate={openPostUpdate}
+          setOpenPostUpdate={setOpenPostUpdate}
+        />
+      )}
     </div>
   );
 }

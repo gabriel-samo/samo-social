@@ -55,3 +55,32 @@ export const addPost = async (req: Request, res: Response) => {
       .json({ msg: `Something went wrong: \n${error.message}` });
   }
 };
+
+export const updatePost = async (req: Request, res: Response) => {
+  try {
+    const postId = req.params.id;
+    const newPostDetails = { ...req.body };
+
+    // deleting all the fileds that are 'null' in the object
+    for (let item in newPostDetails) {
+      if (newPostDetails[item] === null) {
+        delete newPostDetails[item];
+      }
+    }
+
+    newPostDetails.updatedAt = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+
+    const updatePostQuery = "UPDATE posts SET ? WHERE id = ?";
+
+    const reuslt = await Query(updatePostQuery, [newPostDetails, postId]);
+
+    if (reuslt.affectedRows > 0) {
+      return res.status(200).json({ msg: "Post was updated :)" });
+    }
+    return res.status(403).json({ msg: "You can only update YOUR posts." });
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json({ msg: `Something went wrong: \n${error.message}` });
+  }
+};

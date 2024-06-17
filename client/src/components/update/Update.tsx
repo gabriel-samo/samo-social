@@ -1,12 +1,12 @@
 import "./update.scss";
 import notify from "../../utils/Notify";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Fade } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import { loginUser } from "../../store/authSlice";
 import { setProfile } from "../../store/profileSlice";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { makeRequest } from "../../utils/makeRequest";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 type UpdateProps = {
   setOpenUpdate: (arg: boolean) => void;
@@ -61,10 +61,10 @@ function Update({ openUpdate, setOpenUpdate }: UpdateProps) {
     event.preventDefault();
 
     const coverPicUrl = coverPic
-      ? `/uploads/${await upload(coverPic)}`
+      ? `http:/localhost:3012/api/upload/${await upload(coverPic)}`
       : userProfile.coverPic;
     const profilePicUrl = profilePic
-      ? `/uploads/${await upload(profilePic)}`
+      ? `http:/localhost:3012/api/upload/${await upload(profilePic)}`
       : userProfile.profilePic;
 
     const userDetails = {
