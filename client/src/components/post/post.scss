@@ -112,6 +112,8 @@
         .updatedAt {
           display: flex;
           align-content: end;
+          color: themed("textColorSoft");
+          font-size: 12px;
         }
       }
     }

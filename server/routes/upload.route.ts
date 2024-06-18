@@ -34,7 +34,9 @@ router.get("/:imageId", async (req, res) => {
 router.post("/", upload.single("file"), (req, res) => {
   try {
     const file = req.file;
-    return res.status(200).json(file?.filename);
+    return res
+      .status(200)
+      .json(`http://localhost:3012/api/upload/${file?.filename}`);
   } catch (error: any) {
     return res.status(500).json(error.message);
   }

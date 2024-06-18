@@ -144,41 +144,51 @@ function Update({ openUpdate, setOpenUpdate }: UpdateProps) {
                 }}
               />
             </div>
-            <label>Email:</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="Enter a new email"
-              onChange={handleChange}
-            />
-            <label>Password:</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter a new password"
-              onChange={handleChange}
-            />
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter a new name"
-              onChange={handleChange}
-            />
-            <label>Country / City:</label>
-            <input
-              type="text"
-              name="city"
-              placeholder="Enter a new city"
-              onChange={handleChange}
-            />
-            <label>Website:</label>
-            <input
-              type="text"
-              name="website"
-              placeholder="Enter a new website"
-              onChange={handleChange}
-            />
+            <div className="inputField">
+              <label>Email:</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="Enter a new email"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="inputField">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter a new password"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="inputField">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter a new name"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="inputField">
+              <label>Country / City:</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Enter a new city"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="inputField">
+              <label>Website:</label>
+              <input
+                type="text"
+                name="website"
+                placeholder="Enter a new website"
+                onChange={handleChange}
+              />
+            </div>
             <button onClick={handleClick}>Update</button>
           </form>
           <button className="close" onClick={() => setOpenUpdate(false)}>

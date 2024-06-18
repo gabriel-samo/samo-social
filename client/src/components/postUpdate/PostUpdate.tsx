@@ -89,8 +89,8 @@ function PostUpdate({
               />
             </div>
             <label>Post Description:</label>
-            <input
-              type="text"
+            <textarea
+              rows={5}
               name="desc"
               placeholder="Enter new post description"
               onChange={(e) => {

@@ -115,11 +115,7 @@ function Post({ post }: PostProps) {
         <div className="content">
           <p>{post.desc}</p>
           <img
-            src={
-              post.img?.includes("//")
-                ? post.img
-                : `http://localhost:3012/api/upload/${post.img}`
-            }
+            src={post.img?.includes("//") ? post.img : `${post.img}`}
             alt=""
           />
         </div>
@@ -151,7 +147,11 @@ function Post({ post }: PostProps) {
             </div>
           </div>
           <div className="updatedAt">
-            {post.updatedAt ? "Edited " + moment(post.updatedAt).fromNow() : ""}
+            <i>
+              {post.updatedAt
+                ? "Edited " + moment(post.updatedAt).fromNow()
+                : ""}
+            </i>
           </div>
         </div>
         <Collapse in={showComments}>
