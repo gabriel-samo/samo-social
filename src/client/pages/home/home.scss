@@ -1,0 +1,23 @@
+@import "../../styles/app.scss";
+
+.home {
+  @include themify($themes) {
+    transition: all 0.5s;
+    padding: 20px 50px;
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    min-height: 100vh;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include mobile {
+      padding: 10px;
+    }
+
+    @include tablet {
+      padding: 20px;
+    }
+  }
+}

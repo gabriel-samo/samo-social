@@ -1,0 +1,21 @@
+@import "../../styles/app.scss";
+
+.page404 {
+  @include themify($themes) {
+    transition: all 0.5s;
+    padding: 20px 50px;
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      transition: all 0.5s;
+      background-color: themed("bg");
+      height: 10%;
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+  }
+}
